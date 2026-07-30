@@ -1,6 +1,7 @@
+import time
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-import time
 
 from app.config import get_settings
 from app.logger import get_logger

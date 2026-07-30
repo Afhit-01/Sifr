@@ -1,16 +1,17 @@
+
 from fastapi import APIRouter, HTTPException, status
-from typing import Dict, List
-from app.models.item import Item, ItemCreate, ItemUpdate
+
 from app.logger import get_logger
+from app.models.item import Item, ItemCreate, ItemUpdate
 
 router = APIRouter(prefix="/items", tags=["Items"])
 logger = get_logger(__name__)
 
 # In-memory store (replace with a real DB in production)
-_store: Dict[str, Item] = {}
+_store: dict[str, Item] = {}
 
 
-@router.get("/", response_model=List[Item])
+@router.get("/", response_model=list[Item])
 def list_items():
     logger.info("Listing all items, count=%d", len(_store))
     return list(_store.values())

@@ -1,5 +1,7 @@
-from fastapi import APIRouter
 from datetime import datetime, timezone
+
+from fastapi import APIRouter
+
 from app.config import get_settings
 from app.logger import get_logger
 
