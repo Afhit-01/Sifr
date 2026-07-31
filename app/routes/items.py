@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter, HTTPException, status
 
 from app.logger import get_logger
@@ -30,7 +29,9 @@ def get_item(item_id: str):
     item = _store.get(item_id)
     if not item:
         logger.warning("Item not found id=%s", item_id)
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+        )
     logger.info("Fetched item id=%s", item_id)
     return item
 
@@ -40,7 +41,9 @@ def update_item(item_id: str, payload: ItemUpdate):
     item = _store.get(item_id)
     if not item:
         logger.warning("Update failed — item not found id=%s", item_id)
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+        )
 
     updated_data = payload.model_dump(exclude_unset=True)
     updated_item = item.model_copy(update=updated_data)
@@ -53,6 +56,8 @@ def update_item(item_id: str, payload: ItemUpdate):
 def delete_item(item_id: str):
     if item_id not in _store:
         logger.warning("Delete failed — item not found id=%s", item_id)
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+        )
     del _store[item_id]
     logger.info("Deleted item id=%s", item_id)

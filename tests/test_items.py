@@ -22,13 +22,16 @@ def _create_item(name="Widget", price=9.99) -> dict:
 
 # ── CREATE ──────────────────────────────────────────────────────────────────
 
+
 def test_create_item_returns_201():
     response = client.post("/items/", json={"name": "Gadget", "price": 19.99})
     assert response.status_code == 201
 
 
 def test_create_item_payload():
-    response = client.post("/items/", json={"name": "Gadget", "price": 19.99, "in_stock": False})
+    response = client.post(
+        "/items/", json={"name": "Gadget", "price": 19.99, "in_stock": False}
+    )
     data = response.json()
     assert data["name"] == "Gadget"
     assert data["price"] == 19.99
@@ -48,6 +51,7 @@ def test_create_item_missing_name():
 
 # ── LIST ────────────────────────────────────────────────────────────────────
 
+
 def test_list_items_empty():
     response = client.get("/items/")
     assert response.status_code == 200
@@ -63,6 +67,7 @@ def test_list_items_after_create():
 
 # ── GET ─────────────────────────────────────────────────────────────────────
 
+
 def test_get_item_exists():
     item = _create_item()
     response = client.get(f"/items/{item['id']}")
@@ -77,9 +82,12 @@ def test_get_item_not_found():
 
 # ── UPDATE ──────────────────────────────────────────────────────────────────
 
+
 def test_update_item():
     item = _create_item()
-    response = client.put(f"/items/{item['id']}", json={"name": "Updated", "price": 49.99})
+    response = client.put(
+        f"/items/{item['id']}", json={"name": "Updated", "price": 49.99}
+    )
     assert response.status_code == 200
     data = response.json()
     assert data["name"] == "Updated"
@@ -92,6 +100,7 @@ def test_update_item_not_found():
 
 
 # ── DELETE ──────────────────────────────────────────────────────────────────
+
 
 def test_delete_item():
     item = _create_item()
