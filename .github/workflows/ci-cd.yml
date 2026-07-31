@@ -86,6 +86,7 @@ jobs:
           context: .
           target: runtime
           push: false
+          load: true
           tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -159,7 +160,7 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
 
             docker stop sifr_api || true
-            docker rm   sifr_api || true
+            docker rm sifr_api || true
 
             docker run -d \
               --name sifr_api \
