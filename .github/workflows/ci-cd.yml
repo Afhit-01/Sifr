@@ -9,7 +9,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.12"
-  IMAGE_NAME: Sifr
+  IMAGE_NAME: sifr
 
 jobs:
   # ── Job 1: Lint & Type-check ───────────────────────────────────────────────
